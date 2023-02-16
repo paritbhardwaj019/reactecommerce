@@ -1,12 +1,20 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { HeaderImage } from "../../exports";
+import { headerImageVariant, headerContentVariants } from "../../variants";
 
 export default function Header() {
   return (
     <section>
       <div className="max-w-5xl mx-auto w-full font-firacode">
         <div className="flex md:flex-row md:justify-between items-start py-10 flex-col-reverse justify-center px-6">
-          <div className="max-w-md mt-4 md:mt-0">
+          <motion.div
+            className="max-w-md mt-4 md:mt-0"
+            variants={headerContentVariants}
+            initial="initial"
+            animate="animate"
+            transition={"transition"}
+          >
             <p className="text-[rgb(155,89,182)] font-medium text-md">
               WELCOME TO
             </p>
@@ -23,15 +31,20 @@ export default function Header() {
                 SHOP NOW
               </button>
             </Link>
-          </div>
+          </motion.div>
           <div>
-            <figure>
+            <motion.figure
+              variants={headerImageVariant}
+              initial="initial"
+              animate="animate"
+              transition={"transition"}
+            >
               <img
                 src={HeaderImage}
                 alt="Hero Image"
                 className="max-w-sm w-full"
               />
-            </figure>
+            </motion.figure>
           </div>
         </div>
       </div>

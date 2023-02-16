@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { Tag, updateProducts, baseURL } from "../../exports";
+import { categoryVariants } from "../../variants";
 
 export default function Category() {
   const dispatch = useDispatch();
@@ -20,7 +22,13 @@ export default function Category() {
 
   return (
     <section className="py-6 bg-navbar">
-      <div className="max-w-5xl mx-auto w-full font-firacode px-6">
+      <motion.div
+        className="max-w-5xl mx-auto w-full font-firacode px-6"
+        variants={categoryVariants}
+        initial="initial"
+        animate="animate"
+        transition={"transition"}
+      >
         <h1 className="text-center text-white font-bold tracking-wide text-3xl">
           COLLECTION
         </h1>
@@ -33,7 +41,7 @@ export default function Category() {
             );
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
