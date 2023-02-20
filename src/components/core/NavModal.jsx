@@ -2,13 +2,21 @@ import { NavLink, Link } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, changeNavState } from "../../exports";
+import { motion } from "framer-motion";
+import { navModalVariants } from "../../variants";
 
 export default function NavModal() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reactecommerce);
 
   return (
-    <div className="bg-navbar rounded-md md:hidden max-w-48 w-48 fixed right-4 top-16 shadow-lg shadow-black/10 font-firacode z-10">
+    <motion.div
+      className="bg-navbar rounded-md md:hidden max-w-48 w-48 fixed right-4 top-16 shadow-lg shadow-black/10 font-firacode z-10"
+      variants={navModalVariants}
+      initial="initial"
+      animate="animate"
+      transition="transition"
+    >
       <div className="w-full flex flex-col space-y-4 py-4 items-center tracking-wider">
         <NavLink
           to="/"
@@ -57,6 +65,6 @@ export default function NavModal() {
           </Link>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }

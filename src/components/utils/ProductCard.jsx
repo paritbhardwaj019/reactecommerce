@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { StarRating, addCartProducts } from "../../exports";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function ProductCard({
   _id,
@@ -14,13 +15,12 @@ export default function ProductCard({
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const image = images || [];
   return (
     <>
       <section className="border-[#ECF0F1] border-2 rounded-2xl relative flex flex-col w-full max-w-xs cursor-pointer justify-between">
         <>
-          <Link to={goto}>
+          <div onClick={() => (window.location.href = goto)}>
             <div className="absolute bg-[#27AE60]/10 ] text-[#27AE60] font-bold px-2 py-1 text-xs rounded-full top-2 left-2">
               {" "}
               -36%
@@ -32,7 +32,7 @@ export default function ProductCard({
                 className="rounded-xl w-60 h-60"
               />
             </div>
-          </Link>
+          </div>
         </>
         <div className="py-3 px-4 flex flex-col">
           <h2 className="text-md font-semibold text-black mb-2">{title}</h2>
@@ -46,8 +46,8 @@ export default function ProductCard({
                 title,
                 rating,
                 discountedPrice,
-                images,
                 originalPrice,
+                images,
               };
               dispatch(addCartProducts(product));
               navigate("/cart");

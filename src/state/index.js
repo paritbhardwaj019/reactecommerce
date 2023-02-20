@@ -18,4 +18,6 @@ export const initialState = {
   currentRelatedProducts: null,
   currentCategory: null,
   cartProducts: items,
+  cartTotalQuantity: 0,
+  cartTotalMoney: 0,
 };

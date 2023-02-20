@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "../state";
 
 const ecommerceSlice = createSlice({
@@ -49,14 +49,76 @@ const ecommerceSlice = createSlice({
       state.currentRelatedProducts = actions.payload;
     },
     addCartProducts: (state, actions) => {
-      const itemIndex = state.cartProducts.findIndex(
-        (currElem) => currElem._id === actions.payload._id
+      const findedProduct = state.cartProducts.findIndex(
+        (item) => item._id === actions.payload._id
+      );
+      if (findedProduct >= 0) {
+        state.cartProducts[findedProduct].quantity +=
+          actions.payload.quantity || 1;
+      } else {
+        const tempProduct = {
+          ...actions.payload,
+          quantity: actions.payload.quantity || 1,
+        };
+        state.cartProducts = [...state.cartProducts, tempProduct];
+      }
+    },
+    updateProductBySearch: (state, actions) => {
+      state.allProducts =
+        actions.payload !== ""
+          ? state.allProducts.filter((currElem) => {
+              const title = currElem.title.toLowerCase();
+              return title.startsWith(actions.payload);
+            })
+          : [...state.allProducts];
+    },
+    removeProductFromCart: (state, actions) => {
+      state.cartProducts = state.cartProducts.filter((currElem) => {
+        return currElem._id != actions.payload;
+      });
+    },
+    getTotal: (state, actions) => {
+      let { total, quantity } = state.cartProducts.reduce(
+        (cartTotal, cartItem) => {
+          const { discountedPrice, quantity } = cartItem;
+          const itemTotal = discountedPrice * quantity;
+
+          cartTotal.total += itemTotal;
+          cartTotal.quantity += quantity;
+
+          return cartTotal;
+        },
+        {
+          total: 0,
+          quantity: 0,
+        }
       );
 
-      state.cartProducts =
-        itemIndex >= 0
-          ? [...(state.cartProducts[itemIndex].quantity += quantity)]
-          : [...state.cartProducts, actions.payload];
+      state.cartTotalQuantity = quantity;
+      state.cartTotalMoney = total;
+    },
+
+    increaseProductQuantity: (state, actions) => {
+      const findedProduct = state.cartProducts.findIndex(
+        (item) => item._id === actions.payload
+      );
+      if (state.cartProducts[findedProduct].quantity >= 10) {
+        state.cartProducts[findedProduct].quantity = 1;
+      } else {
+        state.cartProducts[findedProduct].quantity += 1;
+      }
+    },
+    decreaseProductQuantity: (state, actions) => {
+      const findedProduct = state.cartProducts.findIndex(
+        (item) => item._id === actions.payload
+      );
+      if (state.cartProducts[findedProduct].quantity <= 1) {
+        state.cartProducts = state.cartProducts.filter((currElem) => {
+          return currElem._id !== actions.payload;
+        });
+      } else {
+        state.cartProducts[findedProduct].quantity -= 1;
+      }
     },
   },
 });
@@ -76,4 +138,9 @@ export const {
   updateUserImage,
   addCurrentRelatedProducts,
   addCartProducts,
+  updateProductBySearch,
+  removeProductFromCart,
+  getTotal,
+  increaseProductQuantity,
+  decreaseProductQuantity,
 } = ecommerceSlice.actions;

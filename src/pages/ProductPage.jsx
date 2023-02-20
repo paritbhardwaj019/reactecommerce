@@ -8,7 +8,7 @@ import {
   baseURL,
   updateProducts,
   Pagination,
-  filterProductBySearch,
+  updateProductBySearch,
 } from "../exports";
 
 export default function ProductPage({ products }) {
@@ -38,9 +38,9 @@ export default function ProductPage({ products }) {
             placeholder="Search"
             className="outline-none py-1 bg-slate-200 px-2 rounded-md w-full"
             value={input}
-            onChange={(e) => {
-              setInput(e.target.value);
-              dispatch(filterProductBySearch(input));
+            onChange={async (e) => {
+              await setInput(e.target.value);
+              dispatch(updateProductBySearch(e.target.value));
             }}
           />
         </div>

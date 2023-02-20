@@ -1,10 +1,18 @@
+import { motion } from "framer-motion";
 import { Facebook, Google, Netlify, Firebase, Heroku } from "../../exports";
+import { categoryVariants } from "../../variants";
 
 export default function Trusted() {
   const companies = [Facebook, Google, Netlify, Firebase, Heroku];
   return (
     <section className="py-6 bg-navbar">
-      <div className="max-w-5xl w-full mx-auto font-firacode px-6">
+      <motion.div
+        className="max-w-5xl w-full mx-auto font-firacode px-6"
+        variants={categoryVariants}
+        initial="initial"
+        animate="animate"
+        transition={"transition"}
+      >
         <h1 className="text-center text-2xl font-semibold">
           Trusted by 10+ Companies ❤️
         </h1>
@@ -13,7 +21,7 @@ export default function Trusted() {
             return <img src={currElem} alt={currElem} key={index} />;
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

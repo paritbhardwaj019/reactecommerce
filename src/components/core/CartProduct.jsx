@@ -1,6 +1,12 @@
-import { StarRating } from "../../exports";
+import {
+  StarRating,
+  getTotal,
+  increaseProductQuantity,
+  decreaseProductQuantity,
+} from "../../exports";
 import { FaMinus, FaPlus } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CartProduct({
   _id,
@@ -9,24 +15,21 @@ export default function CartProduct({
   discountedPrice,
   images,
   originalPrice,
-  quantity = 1,
+  quantity,
 }) {
   const image = images || [];
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.reactecommerce);
 
-  const [quantity1, setQuantity1] = useState(quantity);
-
-  const IncreaseQuantity = () => {
-    quantity1 >= 10 ? setQuantity1(1) : setQuantity1(quantity1 + 1);
-  };
-  const decreaseQuantity = () => {
-    quantity1 <= quantity ? setQuantity1(1) : setQuantity1(quantity1 - 1);
-  };
+  useEffect(() => {
+    dispatch(getTotal());
+  }, [state.cartProducts]);
 
   return (
     <>
-      <section className="md:flex-row flex-col flex w-full justify-between md:items-center items-start border-b border-night last:pb-0 space-x-24 last:border-none pb-2">
-        <div className="flex justify-between items-center">
-          <div className="w-14 h-10 md:w-28 md:h-24 rounded-lg overflow-hidden mr-4">
+      <section className="md:flex-row flex w-full justify-between items-center border-b border-night last:pb-0 last:border-none pb-2">
+        <div className="flex justify-between items-center max-w-4xl w-full">
+          <div className="w-24 h-20 md:w-28 md:h-24 rounded-lg overflow-hidden mr-4">
             <img src={image[0]} alt="Product Image" className="w-full h-full" />
           </div>
           <div className="flex flex-col items-start justify-between max-w-[260px]">
@@ -39,11 +42,14 @@ export default function CartProduct({
           <p className="text-slate-400 hidden md:inline">Quantity: </p>
           <div className="border border-night rounded-md px-2 md:px-4 py-1 flex items-center space-x-2 mt-2 md:mt-0">
             <FaMinus
-              className="text-sm md:text-md"
-              onClick={decreaseQuantity}
+              className="text-sm md:text-md cursor-pointer"
+              onClick={() => dispatch(decreaseProductQuantity(_id))}
             />
-            <p className="text-sm md:text-lg">{quantity1}</p>
-            <FaPlus className="text-sm md:text-md" onClick={IncreaseQuantity} />
+            <p className="text-sm md:text-lg">{quantity}</p>
+            <FaPlus
+              className="text-sm md:text-md cursor-pointer"
+              onClick={() => dispatch(increaseProductQuantity(_id))}
+            />
           </div>
         </div>
       </section>
