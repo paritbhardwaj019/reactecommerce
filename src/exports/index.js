@@ -64,9 +64,12 @@ import {
   addCartProducts,
   updateProductBySearch,
   removeProductFromCart,
+<<<<<<< HEAD
   getTotal,
   increaseProductQuantity,
   decreaseProductQuantity,
+=======
+>>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
 } from "../slice/index";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { auth, app, provider } from "../config/firebase.config";
@@ -132,7 +135,10 @@ export {
   addCartProducts,
   updateProductBySearch,
   removeProductFromCart,
+<<<<<<< HEAD
   getTotal,
   increaseProductQuantity,
   decreaseProductQuantity,
+=======
+>>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
 };
