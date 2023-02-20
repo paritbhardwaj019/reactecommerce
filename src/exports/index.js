@@ -62,6 +62,8 @@ import {
   updateUserImage,
   addCurrentRelatedProducts,
   addCartProducts,
+  updateProductBySearch,
+  removeProductFromCart,
 } from "../slice/index";
 import { useGetCategories } from "../hooks/useGetCategories";
 import { auth, app, provider } from "../config/firebase.config";
@@ -125,4 +127,6 @@ export {
   Delivery,
   CartProduct,
   addCartProducts,
+  updateProductBySearch,
+  removeProductFromCart,
 };

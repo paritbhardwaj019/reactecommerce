@@ -52,3 +52,18 @@ export const categoryVariants = {
     },
   },
 };
+
+export const navModalVariants = {
+  initial: {
+    x: "100vw",
+    opacity: 0,
+  },
+  animate: {
+    x: 0,
+    opacity: 1,
+    tranisition: {
+      type: "spring",
+      stiffness: 100,
+    },
+  },
+};

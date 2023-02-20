@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "../state";
 
 const ecommerceSlice = createSlice({
@@ -49,14 +49,28 @@ const ecommerceSlice = createSlice({
       state.currentRelatedProducts = actions.payload;
     },
     addCartProducts: (state, actions) => {
-      const itemIndex = state.cartProducts.findIndex(
-        (currElem) => currElem._id === actions.payload._id
+      const findedProduct = state.cartProducts.findIndex(
+        (item) => item._id === actions.payload._id
       );
-
-      state.cartProducts =
-        itemIndex >= 0
-          ? [...(state.cartProducts[itemIndex].quantity += quantity)]
-          : [...state.cartProducts, actions.payload];
+      if (findedProduct >= 0) {
+        state.cartProducts[findedProduct].quantity += actions.payload.quantity;
+      } else {
+        state.cartProducts = [...state.cartProducts, actions.payload];
+      }
+    },
+    updateProductBySearch: (state, actions) => {
+      state.allProducts =
+        actions.payload !== ""
+          ? state.allProducts.filter((currElem) => {
+              const title = currElem.title.toLowerCase();
+              return title.startsWith(actions.payload);
+            })
+          : [...state.allProducts];
+    },
+    removeProductFromCart: (state, actions) => {
+      state.cartProducts = state.cartProducts.filter((currElem) => {
+        return currElem._id != actions.payload;
+      });
     },
   },
 });
@@ -76,4 +90,6 @@ export const {
   updateUserImage,
   addCurrentRelatedProducts,
   addCartProducts,
+  updateProductBySearch,
+  removeProductFromCart,
 } = ecommerceSlice.actions;
