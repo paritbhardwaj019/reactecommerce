@@ -51,7 +51,6 @@ const ecommerceSlice = createSlice({
     addCartProducts: (state, actions) => {
       const findedProduct = state.cartProducts.findIndex(
         (item) => item._id === actions.payload._id
-<<<<<<< HEAD
       );
       if (findedProduct >= 0) {
         state.cartProducts[findedProduct].quantity +=
@@ -120,13 +119,6 @@ const ecommerceSlice = createSlice({
       } else {
         state.cartProducts[findedProduct].quantity -= 1;
       }
-=======
-      );
-      if (findedProduct >= 0) {
-        state.cartProducts[findedProduct].quantity += actions.payload.quantity;
-      } else {
-        state.cartProducts = [...state.cartProducts, actions.payload];
-      }
     },
     updateProductBySearch: (state, actions) => {
       state.allProducts =
@@ -141,7 +133,6 @@ const ecommerceSlice = createSlice({
       state.cartProducts = state.cartProducts.filter((currElem) => {
         return currElem._id != actions.payload;
       });
->>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
     },
   },
 });
@@ -163,10 +154,7 @@ export const {
   addCartProducts,
   updateProductBySearch,
   removeProductFromCart,
-<<<<<<< HEAD
   getTotal,
   increaseProductQuantity,
   decreaseProductQuantity,
-=======
->>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
 } = ecommerceSlice.actions;

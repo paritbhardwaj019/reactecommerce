@@ -30,11 +30,7 @@ export default function Total({ total }) {
           </div>
           <div className="flex justify-between w-full items-center text-md mt-3">
             <h1 className="text-black font-bold text-lg">Estimated Total</h1>
-<<<<<<< HEAD
             <span className="text-gray-500">{total}</span>
-=======
-            <span className="text-gray-500">+$2300</span>
->>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
           </div>
         </div>
       </section>

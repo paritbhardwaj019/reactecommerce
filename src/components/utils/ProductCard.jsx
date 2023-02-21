@@ -48,10 +48,6 @@ export default function ProductCard({
                 discountedPrice,
                 originalPrice,
                 images,
-<<<<<<< HEAD
-=======
-                quantity: 1,
->>>>>>> fb9257a9f0e932d4f5f629cfc88d7a96bc274b36
               };
               dispatch(addCartProducts(product));
               navigate("/cart");
