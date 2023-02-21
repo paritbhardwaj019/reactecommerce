@@ -28,14 +28,6 @@ const ecommerceSlice = createSlice({
       }
       state.page = actions.payload;
     },
-    updateSearchQuery: (state, actions) => {
-      state.searchQuery = actions.payload;
-    },
-    filterProductBySearch: (state, actions) => {
-      state.allProducts = state.allProducts.filter((currElem) => {
-        currElem.name.toLowerCase().includes(actions.payload);
-      });
-    },
     changeUserModal: (state, actions) => {
       state.isUserModalClicked = actions.payload;
     },
@@ -62,15 +54,6 @@ const ecommerceSlice = createSlice({
         };
         state.cartProducts = [...state.cartProducts, tempProduct];
       }
-    },
-    updateProductBySearch: (state, actions) => {
-      state.allProducts =
-        actions.payload !== ""
-          ? state.allProducts.filter((currElem) => {
-              const title = currElem.title.toLowerCase();
-              return title.startsWith(actions.payload);
-            })
-          : [...state.allProducts];
     },
     removeProductFromCart: (state, actions) => {
       state.cartProducts = state.cartProducts.filter((currElem) => {
@@ -120,19 +103,21 @@ const ecommerceSlice = createSlice({
         state.cartProducts[findedProduct].quantity -= 1;
       }
     },
-    updateProductBySearch: (state, actions) => {
-      state.allProducts =
-        actions.payload !== ""
-          ? state.allProducts.filter((currElem) => {
-              const title = currElem.title.toLowerCase();
-              return title.startsWith(actions.payload);
-            })
-          : [...state.allProducts];
-    },
     removeProductFromCart: (state, actions) => {
       state.cartProducts = state.cartProducts.filter((currElem) => {
         return currElem._id != actions.payload;
       });
+    },
+    updateSearchText: (state, actions) => {
+      state.searchQuery = actions.payload;
+    },
+    updateAllProducts: (state, actions) => {
+      if (state.searchQuery) {
+        state.allProducts = state.allProducts.filter((currElem) => {
+          return currElem.title.toLowerCase().includes(state.searchQuery);
+        });
+      }
+      state.allProducts = [...state.allProducts];
     },
   },
 });
@@ -145,16 +130,15 @@ export const {
   updateUser,
   updateCatgories,
   updatePageNumber,
-  updateSearchQuery,
-  filterProductBySearch,
   changeUserModal,
   updateSingleProduct,
   updateUserImage,
   addCurrentRelatedProducts,
   addCartProducts,
-  updateProductBySearch,
   removeProductFromCart,
   getTotal,
   increaseProductQuantity,
   decreaseProductQuantity,
+  updateSearchText,
+  updateAllProducts,
 } = ecommerceSlice.actions;

@@ -20,4 +20,5 @@ export const initialState = {
   cartProducts: items,
   cartTotalQuantity: 0,
   cartTotalMoney: 0,
+  searchQuery: null,
 };

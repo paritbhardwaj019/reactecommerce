@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaListUl } from "react-icons/fa";
 import { HiViewGrid } from "react-icons/hi";
 import { useSelector, useDispatch } from "react-redux";
@@ -8,11 +8,11 @@ import {
   baseURL,
   updateProducts,
   Pagination,
-  updateProductBySearch,
+  updateSearchText,
+  updateAllProducts,
 } from "../exports";
 
 export default function ProductPage({ products }) {
-  const [input, setInput] = useState(null);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.reactecommerce);
 
@@ -29,6 +29,10 @@ export default function ProductPage({ products }) {
       });
   };
 
+  useEffect(() => {
+    dispatch(updateAllProducts());
+  }, [state.searchQuery]);
+
   return (
     <section className="font-firacode w-full space-y-6 mb-4 py-10">
       <div className="w-full flex justify-between items-center max-w-screen-2xl mx-auto font-firacode">
@@ -37,10 +41,9 @@ export default function ProductPage({ products }) {
             type="text"
             placeholder="Search"
             className="outline-none py-1 bg-slate-200 px-2 rounded-md w-full"
-            value={input}
-            onChange={async (e) => {
-              await setInput(e.target.value);
-              dispatch(updateProductBySearch(e.target.value));
+            value={state.searchQuery}
+            onChange={(e) => {
+              dispatch(updateSearchText(e.target.value || null));
             }}
           />
         </div>

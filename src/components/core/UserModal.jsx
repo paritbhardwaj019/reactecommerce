@@ -16,14 +16,15 @@ export default function UserModal() {
       });
   };
 
-  const handleDeleteUser = () => {
-    deleteUser(auth.currentUser)
+  const handleDeleteUser = async () => {
+    await deleteUser(auth.currentUser)
       .then(() => {
         navigate("/");
       })
       .catch((error) => {
         console.log(error);
       });
+    handleSignout();
   };
 
   return (
