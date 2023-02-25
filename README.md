@@ -38,7 +38,7 @@ npm install
 
 <h4><em>5. Edit Firebase Config File</em></h4>
 
-<li><strong><em>Edit /config/firebase.config.js</strong></em></li>
+<li><strong><em>Edit /src/config/firebase.config.js</strong></em></li>
 <br>
 
 ```
