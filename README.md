@@ -1,5 +1,7 @@
 <h1 align="center"><strong><em>Shoptree - Ecommerce site Using MERN ⚡</em></strong></h1>
 
+<h4><em>Preview : <a href="https://ecommercereactusingreduxtoolkit.netlify.app">Deploy Link</a></em><h4>
+
 <h2><em>Features</em></h2>
 <li>Product search and filtering by category</li>
 <li>Cart management with add, remove, and update functionality</li>
